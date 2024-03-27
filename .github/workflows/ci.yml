@@ -50,7 +50,6 @@ jobs:
           POSTGRES_DB: simple_bank
           POSTGRES_PORT: 5433
         run: make migrateup
-        run: go build -v ./...
 
       - name: Test
         run: go test -v -cover ./...
