@@ -41,7 +41,7 @@ jobs:
           go-version: "1.22.0"
 
       - name: Install golang-migrate
-        run: go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latestv4.17
+        run: go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@v4.17
 
       - name: Run migrations
         run: make migrateup
