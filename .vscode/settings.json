@@ -3,6 +3,7 @@
     "linesBetweenQueries": 2
   },
   "cSpell.words": [
-    "gofakeit"
+    "gofakeit",
+    "mapstructure"
   ]
 }

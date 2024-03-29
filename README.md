@@ -9,6 +9,10 @@
 ```bash
 go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
 ```
+- mockgen
+```bash
+go install go.uber.org/mock/mockgen@latest
+```
 
 ## Getting Started
 
