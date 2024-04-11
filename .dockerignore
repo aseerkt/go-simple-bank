@@ -1,0 +1,8 @@
+.gitignore
+sql/queries
+.vscode
+.github
+README.md
+docker-compose.yml
+app.sample.env
+Dockerfile

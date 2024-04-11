@@ -1,13 +1,20 @@
-version: "3.8"
+version: "3.9"
 
 services:
   db:
     image: postgres:16-alpine
-    container_name: ${DB_CONTAINER_NAME}
     ports:
-      - "${DB_PORT}:5432"
+      - "5433:5432"
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-  sqlc:
-    image: sqlc/sqlc
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=simple_bank
+  server:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - GIN_MODE=release
+      - DB_URL=postgresql://root:secret@db:5432/simple_bank?sslmode=disable
+    depends_on:
+      - db

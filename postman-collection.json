@@ -1,0 +1,206 @@
+{
+    "info": {
+        "_postman_id": "c377b3b3-50da-4dfd-a0b2-797715494492",
+        "name": "simplebank",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "users",
+            "item": [
+                {
+                    "name": "POST",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:8080/users",
+                            "path": [
+                                "users"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"username\": \"nassar\",\n  \"password\": \"nassar@123\",\n  \"full_name\": \"Nassar TP\",\n  \"email\": \"nassar@gmail.com\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "POST /login",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:8080/users/login",
+                            "path": [
+                                "users",
+                                "login"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"username\": \"nassar\",\n  \"password\": \"nassar@123\"\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "accounts",
+            "item": [
+                {
+                    "name": "POST",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:8080/accounts",
+                            "path": [
+                                "accounts"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"currency\": \"INR\"\n}"
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "v4.local.p6tKxQczz939GW5ItRT6f1QsxT5jKsQY6F23ZDeVx9OEhtpLW9UAbchVY9y0PKzGZZsu1607bNadtXIwa7YBuSuOIM9Y_5MfMu7f5AzEoZpMVCm7iRjpEBJdRCQTmFMT5Hdr1n5VM7uX9I1vIkQs5uNhiqW7ncu8pwhwlmXbxyYsR8MZqK7_riIA8ScLRa-iR7h14ujNRNe2ezFmJh0FHSeEhItS-F6Jt6h7ZMDQ2ATDnevXtGjOluuZmP3MjT_6Nftd2jSPZzbjsQpTETX4Nkia39MFbHU1",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "GET /:id",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:8080/accounts/3",
+                            "path": [
+                                "accounts",
+                                "3"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "v4.local.eaUrp71bcqSIzGGOlcHGXdQ7n1twxf6Q64TXCVAtSAgr_Bej0QcN_9Xja8wMDiUHok4NgyzN2yS4FDtlyWFqq4l1uOL59oNRcQs8uTW1CI_kdu_xRsM7ppVOZ5w5mFdAnXgbu1otFPnZzdiUxBadSlgsvQxxHwD6DQblriF9_IXUWCc5Xgwv6K7e18Yt0ObnP4VyiJz0ERUk21AAjv4ttOgid_aUbV2RuFTwxoDECWEqElF0AkxGhH0c97lqCjmFPkulJ4QJG4hWmxjGza4U3DZT486S2BsTBg",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "GET",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:8080/accounts/3",
+                            "path": [
+                                "accounts",
+                                "3"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "v4.local.eaUrp71bcqSIzGGOlcHGXdQ7n1twxf6Q64TXCVAtSAgr_Bej0QcN_9Xja8wMDiUHok4NgyzN2yS4FDtlyWFqq4l1uOL59oNRcQs8uTW1CI_kdu_xRsM7ppVOZ5w5mFdAnXgbu1otFPnZzdiUxBadSlgsvQxxHwD6DQblriF9_IXUWCc5Xgwv6K7e18Yt0ObnP4VyiJz0ERUk21AAjv4ttOgid_aUbV2RuFTwxoDECWEqElF0AkxGhH0c97lqCjmFPkulJ4QJG4hWmxjGza4U3DZT486S2BsTBg",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "transfers",
+            "item": [
+                {
+                    "name": "POST",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:8080/transfers",
+                            "path": [
+                                "transfers"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8080"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"from_account_id\": 10,\n  \"to_account_id\": 1,\n  \"amount\": 100,\n  \"currency\": \"INR\"\n}"
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "v4.local.RLWLZUXH5H_g3hl6CZ6C7CR-v4XqvdeYWCIIrB0OAX2fvdk3xv6C8EGeQTKUjg2Y22HUPIX2t7pIPuV1YRVeOlmTRTcsLBkaqiLG4Y_QawZ00dtBs_aaUFPOaJeJtBjLFOhQuA2UemyKMQvMjgM8AfVXvoMuxIIdzW4MChqSZLu6iVibAJgcDHV-f_gzI3Bw0UNmM83Hvhikb4CyPDIcsFJOWa8A76tGVkRdCL5_ToqPS1jPonfcqIBEPj0h744uYV6-K9EDsgZyaDlGXkAq1T2rO_H1vxkj6g",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

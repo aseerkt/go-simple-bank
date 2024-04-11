@@ -3,7 +3,15 @@
     "linesBetweenQueries": 2
   },
   "cSpell.words": [
+    "alphanum",
+    "aseerkt",
+    "brianvoe",
     "gofakeit",
-    "mapstructure"
+    "gomock",
+    "gonic",
+    "mapstructure",
+    "mockdb",
+    "sqlc",
+    "stretchr"
   ]
 }

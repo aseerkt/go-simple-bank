@@ -1,43 +1,46 @@
 package api
 
 import (
-	"net/http"
-
 	"github.com/aseerkt/go-simple-bank/pkg/db"
+	"github.com/aseerkt/go-simple-bank/pkg/token"
+	"github.com/aseerkt/go-simple-bank/pkg/utils"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
+	"github.com/go-playground/validator/v10"
 )
 
 type Server struct {
-	store  *db.SQLStore
-	router *gin.Engine
+	config     *utils.Config
+	tokenMaker token.Maker
+	store      db.Store
+	router     *gin.Engine
 }
 
-func NewServer(store *db.SQLStore) *Server {
-	return &Server{store: store, router: gin.Default()}
+func NewServer(store db.Store, config *utils.Config) *Server {
+
+	tm := token.NewPasetoMaker()
+
+	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+		v.RegisterValidation("currency", validCurrency)
+	}
+
+	return &Server{config: config, tokenMaker: tm, store: store, router: gin.Default()}
 }
 
 func (s *Server) LoadRoutes() {
-	s.router.POST("/accounts", s.createAccount)
-	s.router.GET("/accounts/:id", s.getAccount)
-	s.router.GET("/accounts", s.listAccounts)
+	s.router.POST("/users", s.createUser)
+	s.router.POST("/users/login", s.loginUser)
+
+	authRoutes := s.router.Group("/").Use(auth(s.tokenMaker))
+
+	authRoutes.POST("/accounts", s.createAccount)
+	authRoutes.GET("/accounts/:id", s.getAccount)
+	authRoutes.GET("/accounts", s.listAccounts)
+
+	authRoutes.POST("/transfers", s.createTransfer)
+
 }
 
 func (s *Server) Start(addr string) error {
 	return s.router.Run(addr)
-}
-
-func errorResponse(err error) gin.H {
-	return gin.H{"error": err.Error()}
-}
-
-func handleBadRequest(c *gin.Context, err error) {
-	c.JSON(http.StatusBadRequest, errorResponse(err))
-}
-
-func handleInternalError(c *gin.Context, err error) {
-	c.JSON(http.StatusInternalServerError, errorResponse(err))
-}
-
-func handleNotFound(c *gin.Context, err error) {
-	c.JSON(http.StatusNotFound, errorResponse(err))
 }

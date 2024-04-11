@@ -12,8 +12,10 @@ import (
 
 func createTestAccount(t *testing.T) Account {
 
+	user := createTestUser(t)
+
 	arg := CreateAccountParams{
-		Owner:    gofakeit.Name(),
+		Owner:    user.Username,
 		Balance:  gofakeit.Int64(),
 		Currency: gofakeit.CurrencyShort(),
 	}
@@ -85,11 +87,14 @@ func TestDeleteAccount(t *testing.T) {
 }
 
 func TestListAccount(t *testing.T) {
+	var lastAccount Account
+
 	for range 5 {
-		createTestAccount(t)
+		lastAccount = createTestAccount(t)
 	}
 
 	arg := ListAccountsParams{
+		Owner:  lastAccount.Owner,
 		Limit:  5,
 		Offset: 0,
 	}
@@ -97,10 +102,10 @@ func TestListAccount(t *testing.T) {
 	accounts, err := testQueries.ListAccounts(context.Background(), arg)
 
 	require.NoError(t, err)
-	require.Len(t, accounts, 5)
 
 	for _, account := range accounts {
 		require.NotEmpty(t, account)
+		require.Equal(t, account.Owner, lastAccount.Owner)
 	}
 
 }

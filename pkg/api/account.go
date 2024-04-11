@@ -2,15 +2,17 @@ package api
 
 import (
 	"database/sql"
+	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/aseerkt/go-simple-bank/pkg/db"
 	"github.com/gin-gonic/gin"
+	"github.com/lib/pq"
 )
 
 type createAccountPayload struct {
-	Owner    string `json:"owner" binding:"required"`
-	Currency string `json:"currency" binding:"required,oneof=INR USD EUR"`
+	Currency string `json:"currency" binding:"required,currency"`
 }
 
 func (s *Server) createAccount(c *gin.Context) {
@@ -21,8 +23,10 @@ func (s *Server) createAccount(c *gin.Context) {
 		return
 	}
 
+	authPayload := getAuthCtx(c)
+
 	arg := db.CreateAccountParams{
-		Owner:    payload.Owner,
+		Owner:    authPayload.Username,
 		Currency: payload.Currency,
 		Balance:  0,
 	}
@@ -30,9 +34,16 @@ func (s *Server) createAccount(c *gin.Context) {
 	account, err := s.store.CreateAccount(c, arg)
 
 	if err != nil {
-
+		if pqError, ok := err.(*pq.Error); ok {
+			fmt.Println(err)
+			fmt.Println(pqError.Code.Name())
+			switch pqError.Code.Name() {
+			case "foreign_key_violation", "unique_violation":
+				handleForbidden(c, pqError)
+				return
+			}
+		}
 		handleInternalError(c, err)
-
 		return
 	}
 
@@ -62,6 +73,14 @@ func (s *Server) getAccount(c *gin.Context) {
 		return
 	}
 
+	authPayload := getAuthCtx(c)
+
+	if authPayload.Username != account.Owner {
+		err := errors.New("account doesn't belong to current user")
+		handleUnauthorized(c, err)
+		return
+	}
+
 	c.JSON(http.StatusOK, account)
 }
 
@@ -78,7 +97,10 @@ func (s *Server) listAccounts(c *gin.Context) {
 		return
 	}
 
+	authPayload := getAuthCtx(c)
+
 	arg := db.ListAccountsParams{
+		Owner:  authPayload.Username,
 		Offset: int32(query.PageID - 1),
 		Limit:  int32(query.PageSize),
 	}
