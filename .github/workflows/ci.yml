@@ -10,7 +10,7 @@ on:
     branches: ["main"]
 
 jobs:
-  build:
+  build-test:
     runs-on: ubuntu-latest
     services:
       # Label used to access the service container
@@ -45,7 +45,7 @@ jobs:
 
       - name: Run migrations
         env:
-          DB_URL: postgresql://root:secret@localhost:5433/simple_bank?sslmode=disable
+          DB_URL: postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable
         run: make migrateup
 
       - name: Test
