@@ -3,7 +3,6 @@ package api
 import (
 	"database/sql"
 	"errors"
-	"fmt"
 	"net/http"
 
 	"github.com/aseerkt/go-simple-bank/pkg/db"
@@ -35,8 +34,6 @@ func (s *Server) createAccount(c *gin.Context) {
 
 	if err != nil {
 		if pqError, ok := err.(*pq.Error); ok {
-			fmt.Println(err)
-			fmt.Println(pqError.Code.Name())
 			switch pqError.Code.Name() {
 			case "foreign_key_violation", "unique_violation":
 				handleForbidden(c, pqError)

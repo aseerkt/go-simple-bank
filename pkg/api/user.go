@@ -80,7 +80,6 @@ type loginUserPayload struct {
 func (s *Server) loginUser(c *gin.Context) {
 	var payload loginUserPayload
 	if err := c.ShouldBindJSON(&payload); err != nil {
-		fmt.Println("body json is invalid")
 		handleBadRequest(c, err)
 		return
 	}

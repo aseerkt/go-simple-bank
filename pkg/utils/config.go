@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/spf13/viper"
@@ -29,8 +28,6 @@ func LoadConfig(path string) Config {
 	if err := viper.Unmarshal(&config); err != nil {
 		log.Fatal("unable to unmarshal config: ", err)
 	}
-
-	fmt.Println(config)
 
 	return config
 }

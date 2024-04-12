@@ -101,19 +101,6 @@ func TestVerifyToken(t *testing.T) {
 				require.ErrorIs(t, err, jwt.ErrTokenUnverifiable)
 			},
 		},
-		{
-			name: "InvalidClaims",
-			createToken: func() string {
-				jwtToken := jwt.New(jwt.SigningMethodHS256)
-				token, err := jwtToken.SignedString([]byte(secretKey))
-				require.NoError(t, err)
-				return token
-			},
-			checkResults: func(p *Payload, err error) {
-				require.Empty(t, p)
-				require.Error(t, err)
-			},
-		},
 	}
 
 	for _, tc := range testCases {

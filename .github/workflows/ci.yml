@@ -12,6 +12,8 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
+    env:
+      DB_URL: postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable
     services:
       # Label used to access the service container
       postgres:
@@ -44,9 +46,10 @@ jobs:
         run: go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@v4.17
 
       - name: Run migrations
-        env:
-          DB_URL: postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable
         run: make migrateup
+
+      - name: Create env configuration file
+        run: cp app.sample.env app.env
 
       - name: Test
         run: go test -v -cover ./...

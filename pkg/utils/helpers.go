@@ -1,9 +1,8 @@
 package utils
 
+import "github.com/aseerkt/go-simple-bank/pkg/constants"
+
 func IsSupportedCurrency(currency string) bool {
-	switch currency {
-	case USD, EUR, CAD, INR:
-		return true
-	}
-	return false
+	_, ok := constants.Currency[currency]
+	return ok
 }

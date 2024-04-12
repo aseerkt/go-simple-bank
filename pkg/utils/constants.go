@@ -6,5 +6,3 @@ const (
 	CAD = "CAD"
 	INR = "INR"
 )
-
-
