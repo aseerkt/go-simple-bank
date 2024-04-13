@@ -52,4 +52,4 @@ jobs:
         run: |
           kubectl apply -f eks/deployment.yml
           kubectl apply -f eks/service.yml
-          kubectl set image deployment/simplebank-deployment simplebank=$IMAGE
+          kubectl set image deployment/simplebank-deployment simplebank=$IMAGE -n simplebank
