@@ -20,7 +20,7 @@ COPY --from=builder /app/server .
 COPY --from=builder /app/migrate .
 
 COPY app.env .
-COPY start.sh .
+COPY scripts/start.sh .
 COPY sql/migrations/ ./sql/migrations/
 
 CMD ["server"]
