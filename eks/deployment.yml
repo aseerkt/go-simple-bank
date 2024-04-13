@@ -27,7 +27,7 @@ spec:
                 - arm64
       containers:
       - name: simplebank
-        image: $IMAGE
+        image: aseerkt/simplebank:latest
         ports:
         - name: http
           containerPort: 8080
