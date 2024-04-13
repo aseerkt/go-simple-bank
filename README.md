@@ -7,8 +7,9 @@
 - [golang-migrate](https://github.com/golang-migrate/migrate/tree/master/cmd/migrate)
 - sqlc
 - mockgen
-- AWS CLI
+- AWS CLI - v2
 - kubectl
+- eksctl
 - minikube
 
 ## Getting Started
@@ -29,3 +30,9 @@ make migrateup
 ```
 
 For more scripts checkout [`Makefile`](/Makefile)
+
+# Deployment
+
+
+- Create IAM user
+- Create EKS Cluster using [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html)
