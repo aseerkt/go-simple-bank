@@ -49,6 +49,6 @@ jobs:
       - name: Install helm chart to EKS cluster
         run: |
           helm upgrade -i simplebank helm/simplebank \
-          --set image.repository=${{steps.login-ecr.outputs.registry}}/${{secrets.AWS_ECR_REPOSITORY}}, \
-          image.tag=${{github.sha}}, \
-          image.pullPolicy=IfNotPresent
+          --set image.repository=${{steps.login-ecr.outputs.registry}}/${{secrets.AWS_ECR_REPOSITORY}} \
+          --set image.tag=${{github.sha}} \
+          --set image.pullPolicy=IfNotPresent
