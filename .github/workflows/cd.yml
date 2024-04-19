@@ -46,10 +46,9 @@ jobs:
       - name: Set kube config
         run: aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER }} --region ${{ secrets.AWS_REGION }}
 
-      - name: Deploy changes to EKS cluster
-        env:
-          IMAGE: ${{steps.login-ecr.outputs.registry}}/${{secrets.AWS_ECR_REPOSITORY}}:${{github.sha}}
+      - name: Install helm chart to EKS cluster
         run: |
-          kubectl apply -f eks/deployment.yml
-          kubectl apply -f eks/service.yml
-          kubectl set image deployment/simplebank-deployment simplebank=$IMAGE -n simplebank
+          helm install simplebank helm/simplebank 
+          --set image.repository=${{steps.login-ecr.outputs.registry}}/${{secrets.AWS_ECR_REPOSITORY}},
+                image.tag=${{github.sha}},
+                image.pullPolicy=IfNotPresent

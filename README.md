@@ -31,6 +31,54 @@ make migrateup
 
 For more scripts checkout [`Makefile`](/Makefile)
 
+## Local k8s setup
+
+### Setting up server in minikube k8s cluster
+
+- Create env file
+```bash
+cp app.example.env app.env
+```
+- Start minikube k8s cluster
+```bash
+minikube start
+```
+- Set minikube docker env
+```bash
+eval $(minikube docker-env)
+```
+- Build simplebank docker image
+```bash
+docker build . -t aseerkt/simplebank:latest
+```
+- Create *simplebank** namepsace
+```bash
+kubectl create namespace simplebank
+```
+- Apply simplebank k8s deployment objects
+```bash
+kubectl apply -f eks/deployment.yml
+```
+
+### Post cleanup 
+
+- 
+```bash
+kubectl delete -f eks/deployment.yml
+```
+- 
+```bash
+docker rmi aseerkt/simplebank:latest
+```
+- 
+```bash
+eval $(minikube docker-env --unset)
+```
+- 
+```bash
+minikube stop && minikube delete
+```
+
 # Deployment
 
 
