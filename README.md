@@ -81,6 +81,8 @@ minikube stop && minikube delete
 
 # Deployment
 
-
-- Create IAM user
-- Create EKS Cluster using [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html)
+- Create IAM user with required permissions and create access key
+- Configure AWS CLI
+```bash
+aws configure
+```
