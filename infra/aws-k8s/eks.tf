@@ -29,9 +29,9 @@ module "eks" {
   eks_managed_node_groups = {
     default_ng = {
       # variables reference: https://github.com/terraform-aws-modules/terraform-aws-eks/blob/master/modules/eks-managed-node-group/variables.tf 
-      min_size     = 1
-      max_size     = 4
-      desired_size = 2
+      min_size     = 2
+      max_size     = 10
+      desired_size = 4
 
       disk_size = 20
 

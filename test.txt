@@ -1,0 +1,12 @@
+GIN_MODE=debug
+DB_DRIVER=postgres
+DB_USER=root
+DB_PASSWORD=secret
+DB_NAME=simple_bank
+DB_PORT=5433
+
+DB_URL="postgresql://root:secret@localhost:5433/simple_bank?sslmode=disable"
+SERVER_ADDRESS=:8080
+MIGRATE_URL=file://sql/migrations
+
+CONSOLE=https://654654551000.signin.aws.amazon.com/console
